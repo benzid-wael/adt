@@ -37,7 +37,7 @@ setup(
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='adt',
-    name='adt',
+    name='python-adt',
     packages=find_packages(include=['adt', 'adt.*']),
     setup_requires=setup_requirements,
     test_suite='tests',
