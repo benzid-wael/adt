@@ -3,8 +3,8 @@ Python Advanced Data Structure
 ==============================
 
 
-.. image:: https://img.shields.io/pypi/v/adt.svg
-        :target: https://pypi.python.org/pypi/adt
+.. image:: https://img.shields.io/pypi/v/python-adt.svg
+        :target: https://pypi.python.org/pypi/python-adt
 
 .. image:: https://img.shields.io/travis/benzid-wael/adt.svg
         :target: https://travis-ci.com/benzid-wael/adt
