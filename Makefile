@@ -1,5 +1,8 @@
 .PHONY: clean clean-test clean-pyc clean-build docs help
+TARGET ?= ./
+TEST_ARGS ?= --cov=$(TARGET) --verbose --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=reports/unittest.xml
 .DEFAULT_GOAL := help
+
 
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -45,13 +48,14 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
+	rm -fr reports/
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
 	flake8 adt tests
 
 test: ## run tests quickly with the default Python
-	pytest
+	pytest $(TEST_ARGS) $(TARGET)
 
 test-all: ## run tests on every Python version with tox
 	tox

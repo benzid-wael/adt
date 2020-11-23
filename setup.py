@@ -36,7 +36,7 @@ setup(
     license="GNU General Public License v3",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='adt',
+    keywords='algorithms,data-structure,advanced data structure',
     name='python-adt',
     packages=find_packages(include=['adt', 'adt.*']),
     setup_requires=setup_requirements,
