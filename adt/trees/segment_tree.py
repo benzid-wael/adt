@@ -5,6 +5,26 @@ range queries.
 """
 
 import operator
+import warnings
+
+
+RANGE_MAX_QUERY = 'max'
+RANGE_MIN_QUERY = 'min'
+RANGE_SUM_QUERY = 'sum'
+SUPPORTED_QUERIES_CONFIGURATION = {
+    RANGE_SUM_QUERY: {
+        'merge': operator.add,
+        'default': 0,
+    },
+    RANGE_MIN_QUERY: {
+        'merge': min,
+        'default': float('inf'),
+    },
+    RANGE_MAX_QUERY: {
+        'merge': max,
+        'default': float('-inf'),
+    }
+}
 
 
 class SegmentTree:
@@ -117,9 +137,9 @@ class SegmentTree:
         :param end: range's end
         """
         if start < 0 or start >= self.length or start > end:
-            raise ValueError('Invalid interval: start should belongs to [0, {})'.format(self.length))
+            raise ValueError(f'Invalid interval: start should belongs to [0, {self.length})')
         elif end < 0 or end >= self.length:
-            raise ValueError('Invalid interval: end should belongs to [0, {})'.format(self.length))
+            raise ValueError(f'Invalid interval: end should belongs to [0, {self.length})')
 
         return self._query(start, end, 0, 0, self.length - 1)
 
@@ -135,20 +155,10 @@ class SegmentTreeFactory:
 
     @classmethod
     def create(cls, array, kind: str) -> SegmentTree:
-        mapping = {
-            'sum': {
-                'merge': operator.add,
-                'default': 0,
-            },
-            'min': {
-                'merge': min,
-                'default': float('inf'),
-            },
-            'max': {
-                'merge': max,
-                'default': float('-inf'),
-            }
-        }
-        if kind not in mapping:
-            raise ValueError('Unknown range query type. Supported types are: {}'.format(', '.join(mapping)))
-        return SegmentTree(array, **mapping[kind])
+        if kind == RANGE_SUM_QUERY:
+            # For range sum queries, Segment tree is superseded by BIT, which simpler, faster and take less space
+            warnings.warn('For range sum queries, it is recommended to use `adt.trees.bit.BIT` instead')
+        if kind not in SUPPORTED_QUERIES_CONFIGURATION:
+            supported = ', '.join(SUPPORTED_QUERIES_CONFIGURATION)
+            raise ValueError(f'Unknown range query type. Supported types are: {supported}')
+        return SegmentTree(array, **SUPPORTED_QUERIES_CONFIGURATION[kind])
