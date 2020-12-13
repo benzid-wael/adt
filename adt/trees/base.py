@@ -95,3 +95,31 @@ class BinarySearchTree:
         if self.right:
             data.extend(self.right.inorder())
         return data
+
+    def nodes(self):
+        """
+        Returns iterator over tree's nodes.
+        The iterator iterates over nodes in a breadth-first traversal.
+        """
+        frontier = [self]
+        level = 0
+        while frontier:
+            level += 1
+            next_frontier = []
+            for index, node in enumerate(frontier):
+                if node.left:
+                    next_frontier.append(node.left)
+                if node.right:
+                    next_frontier.append(node.right)
+                if not getattr(node, 'id', None):
+                    node.id = '{}-{}'.format(level, index)
+                yield node
+            frontier = next_frontier
+
+    def edges(self):
+        for node in self.nodes():
+            if node.parent:
+                yield node.parent, node
+
+    def __str__(self):
+        return str(self.value)

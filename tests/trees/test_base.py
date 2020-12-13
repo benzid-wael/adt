@@ -1,35 +1,41 @@
 import copy
 import random
 import unittest
+import logging
 
 from parameterized import parameterized
 
+from adt.visualizer import DigraphVisualizer
 from adt.trees.base import BinarySearchTree
 from adt.trees.base import NodeNotFound
 
 
+logger = logging.getLogger(__name__)
+
+
 class BinarySearchTreeTestCase(unittest.TestCase):
+
     @staticmethod
-    def create_bst(data):
+    def create_bst(data, name=None):
+        name = name or '_'.join(str(elt) for elt in data)
+        logger.debug(f'Creating BST {name} with given data: {data}')
         tree = BinarySearchTree(data[0])
         for elt in data[1:]:
             tree.insert(elt)
+        graph = DigraphVisualizer.from_data(tree)
+        DigraphVisualizer.render(graph, name, directory='.debug/bst')
         return tree
 
     @staticmethod
     def create_bst_with_random_insertion(data):
         data = copy.copy(data)
         k = len(data)
-        tree = None
+        tree = []
         while k > 0:
             idx = random.choice(range(k))
-            if not tree:
-                tree = BinarySearchTree(data[idx])
-            else:
-                tree.insert(data[idx])
-            data.pop(idx)
+            tree.append(data.pop(idx))
             k -= 1
-        return tree
+        return BinarySearchTreeTestCase.create_bst(tree)
 
     @parameterized.expand([
         (2,),
