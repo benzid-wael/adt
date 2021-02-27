@@ -1,6 +1,6 @@
 .PHONY: clean clean-test clean-pyc clean-build docs help
 TARGET ?= ./
-TEST_ARGS ?= --cov=$(TARGET) --verbose --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=reports/unittest.xml
+TEST_ARGS ?= --cov=$(TARGET) --verbose --cov-report=xml --cov-report=term-missing:skip-covered --junitxml=reports/unittest.xml --log-level=DEBUG
 .DEFAULT_GOAL := help
 
 
@@ -45,16 +45,17 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test: ## remove test and coverage artifacts
-	rm -fr .tox/
 	rm -f .coverage
+	rm -fr .pytest_cache
+	rm -fr .tox/
+	rm -fr .debug/
 	rm -fr htmlcov/
 	rm -fr reports/
-	rm -fr .pytest_cache
 
 lint: ## check style with flake8
 	flake8 adt tests
 
-test: ## run tests quickly with the default Python
+test: clean-test ## run tests quickly with the default Python
 	pytest $(TEST_ARGS) $(TARGET)
 
 test-all: ## run tests on every Python version with tox

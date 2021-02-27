@@ -4,19 +4,18 @@ Python Advanced Data Structure
 
 
 .. image:: https://img.shields.io/pypi/v/python-adt.svg
-        :target: https://pypi.python.org/pypi/python-adt
+    :target: https://pypi.python.org/pypi/python-adt
 
 .. image:: https://img.shields.io/travis/benzid-wael/adt.svg
-        :target: https://travis-ci.com/benzid-wael/adt
+    :target: https://travis-ci.com/benzid-wael/adt
 
 .. image:: https://readthedocs.org/projects/adt/badge/?version=latest
-        :target: https://adt.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
+    :target: https://adt.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 .. image:: https://pyup.io/repos/github/benzid-wael/adt/shield.svg
-     :target: https://pyup.io/repos/github/benzid-wael/adt/
-     :alt: Updates
+    :target: https://pyup.io/repos/github/benzid-wael/adt/
+    :alt: Updates
 
 
 
