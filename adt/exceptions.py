@@ -16,3 +16,7 @@ class InvalidChild(TreeException):
 
 class NodeNotFound(DoesNotExist, TreeException):
     pass
+
+
+class AlreadyExist(AdtException):
+    pass

@@ -13,7 +13,9 @@ class Heap(abc.ABC):
         self.data = data or []
 
     @abc.abstractmethod
-    def cmp(self, x, y):
+    def cmp(self, parent, child):
+        # TODO rename this function to: is_heap_property_violated
+        """ Returns boolean indicating whether the heap property is violated or not. """
         pass
 
     @property
